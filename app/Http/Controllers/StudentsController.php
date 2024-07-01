@@ -57,4 +57,27 @@ class StudentsController extends Controller
 
 
     }
+    public function edit($stu_id){
+
+        $response['students'] = $this->students->find($stu_id);
+        return view('pages.edit_student')->with($response);
+    }
+
+
+
+    public function update(Request $request, $student_id){
+
+        $student = $this->students->find($student_id);
+
+        $student->update(array_merge($student->toArray(), $request->toArray()));
+        return redirect('students');
+
+    }
+    public function delete($stu_id){
+
+        $student = $this->students->find($stu_id);
+        $student->delete();
+        return redirect()->back();
+
+    }
 }
